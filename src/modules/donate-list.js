@@ -1,4 +1,4 @@
-import {getTodayDateFormat} from '../core/utils/data'
+import {getFormattedTime as formattedTime} from '../core/utils/index'
 import {objSetting as obj} from '../core/constants/settings'
 
 export class DonateList{
@@ -15,7 +15,7 @@ export class DonateList{
       donatesContainer.innerHTML = '';
       updatedDonates.forEach((item) => {
         donatesContainer.innerHTML += `
-          <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}${obj.currency}</b></div>
+          <div class="donate-item">${formattedTime(item.date)} - <b>${item.amount}${obj.currency}</b></div>
      `
     })
 
@@ -31,7 +31,7 @@ export class DonateList{
 
    this.donates.forEach((item) => {
      listDonatContainer.innerHTML += `
-        <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}${obj.currency}</b></div>
+        <div class="donate-item">${formattedTime(item.date)} - <b>${item.amount}${obj.currency}</b></div>
      `
     })
 

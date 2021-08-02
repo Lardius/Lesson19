@@ -11,7 +11,7 @@ export class DonateForm{
 
   updateTotalAmount(newAmount) {
     const totalAmount = document.querySelector('#total-amount');
-    totalAmount.textContent = newAmount;
+    totalAmount.textContent = `${newAmount}`;
   }
   render(){
     const totalAmount = document.createElement('h1');
@@ -47,7 +47,6 @@ export class DonateForm{
         date: new Date()
       };
       inputDonateForm.value = ''
-      console.log(arrNewDonat)
       this.createNewDonate(arrNewDonat)
 
     } )

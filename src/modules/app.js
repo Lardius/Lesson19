@@ -1,6 +1,8 @@
 import { DonateForm } from './donate-form';
 import  { DonateList } from './donate-list';
 import {objSetting as obj} from '../core/constants/settings'
+import {calculateSumOfNumbers as Calc} from '../core/utils/index'
+
 export default class App{
   #donateForm
   #donatList
@@ -9,17 +11,20 @@ export default class App{
       donates: [],
       totalAmount: 0,
     }
-    this.#donateForm = new DonateForm(this.createNewDonate);
+    this.#donateForm = new DonateForm(this.createNewDonate.bind(this));
     this.#donatList = new DonateList(this.state.donates);
   }
 
   createNewDonate(newDonate) {
+      const amounts = []
+      this.state.donates.push(newDonate);
+      // this.state.totalAmount = this.state.donates.reduce((acc, item) => {
+      //   return (acc + +item.amount)
+      // }, 0)
+      this.state.donates.forEach((item) => {
+        amounts.push(+item.amount)})
 
-      this.state.donates.push(newDonate) ;
-      this.state.totalAmount = this.state.donates.reduce((acc, item) => {
-        return (acc + item.amount)
-      }, 0)
-      console.log(this.state.donates)
+      this.state.totalAmount = Calc(amounts)
       this.#donateForm.updateTotalAmount(`${this.state.totalAmount}${obj.currency}`)
       this.#donatList.updateDonates(this.state.donates)
   }
@@ -36,15 +41,6 @@ export default class App{
   }
 }
 
-const mockDonates = [
-  { amount: 4, date: new Date() },
-  { amount: 20, date: new Date() },
-  { amount: 3, date: new Date() },
-  { amount: 1, date: new Date() },
-];
-//
-// const app = new App()
-// app.createNewDonate(mockDonates)
 
 
 
