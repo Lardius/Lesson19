@@ -1,4 +1,5 @@
 import {getTodayDateFormat} from '../core/utils/data'
+import {objSetting as obj} from '../core/constants/settings'
 
 export class DonateList{
 
@@ -9,12 +10,12 @@ export class DonateList{
     this.#donatesContainer.className = 'donates-container';
   }
 
-  updateDonates(updatedDonates){
+  updateDonates(updatedDonates = []){
       const donatesContainer = document.querySelector('.donates-container__donates');
       donatesContainer.innerHTML = '';
       updatedDonates.forEach((item) => {
         donatesContainer.innerHTML += `
-          <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}$</b></div>
+          <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}${obj.currency}</b></div>
      `
     })
 
@@ -30,7 +31,7 @@ export class DonateList{
 
    this.donates.forEach((item) => {
      listDonatContainer.innerHTML += `
-        <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}$</b></div>
+        <div class="donate-item">${getTodayDateFormat(item.date)} - <b>${item.amount}${obj.currency}</b></div>
      `
     })
 

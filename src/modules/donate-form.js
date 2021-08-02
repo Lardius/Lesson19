@@ -1,7 +1,9 @@
+import {objSetting as obj} from '../core/constants/settings'
+
 export class DonateForm{
   #DonateForm
-  constructor() {
-
+  constructor(createNewDonate) {
+    this.createNewDonate = createNewDonate()
     this.totalAmount = 0;
     this.#DonateForm = document.createElement('form');
     this.#DonateForm.className = 'donate-form';
@@ -14,11 +16,11 @@ export class DonateForm{
   render(){
     const totalAmount = document.createElement('h1');
     totalAmount.id = 'total-amount';
-    totalAmount.textContent = `${this.totalAmount}$`;
+    totalAmount.textContent = `${this.totalAmount}${obj.currency}`;
 
     const labelDonateForm = document.createElement('label');
     labelDonateForm.className = 'donate-form__input-label';
-    labelDonateForm.textContent = 'Введите сумму в $';
+    labelDonateForm.textContent = `Введите сумму в ${obj.currency}`;
 
     const inputDonateForm = document.createElement('input');
     inputDonateForm.className = 'donate-form__donate-input';
@@ -37,6 +39,18 @@ export class DonateForm{
 
     this.#DonateForm.append(totalAmount, labelDonateForm, buttonDonateForm)
 
+    this.#DonateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const valueDonate = inputDonateForm.value
+      const arrNewDonat = {};
+      arrNewDonat.amount = valueDonate;
+      arrNewDonat.date = new Date()
+      inputDonateForm.value = ''
+      console.log(arrNewDonat)
+      this.createNewDonate.bind(this)(arrNewDonat)
+    } )
+
     return this.#DonateForm;
   }
+
 }
