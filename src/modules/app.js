@@ -9,7 +9,7 @@ export default class App{
       donates: [],
       totalAmount: 0,
     }
-    this.#donateForm = new DonateForm();
+    this.#donateForm = new DonateForm(this.createNewDonate);
     this.#donatList = new DonateList(this.state.donates);
   }
 

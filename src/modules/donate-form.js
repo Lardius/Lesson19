@@ -3,7 +3,7 @@ import {objSetting as obj} from '../core/constants/settings'
 export class DonateForm{
   #DonateForm
   constructor(createNewDonate) {
-    this.createNewDonate = createNewDonate()
+    this.createNewDonate = createNewDonate
     this.totalAmount = 0;
     this.#DonateForm = document.createElement('form');
     this.#DonateForm.className = 'donate-form';
@@ -41,13 +41,15 @@ export class DonateForm{
 
     this.#DonateForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const valueDonate = inputDonateForm.value
-      const arrNewDonat = {};
-      arrNewDonat.amount = valueDonate;
-      arrNewDonat.date = new Date()
+      const valueDonate = e.target.amount.value
+      const arrNewDonat = {
+        amount: valueDonate,
+        date: new Date()
+      };
       inputDonateForm.value = ''
       console.log(arrNewDonat)
-      this.createNewDonate.bind(this)(arrNewDonat)
+      this.createNewDonate(arrNewDonat)
+
     } )
 
     return this.#DonateForm;
